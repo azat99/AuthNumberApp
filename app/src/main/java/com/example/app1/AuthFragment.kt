@@ -68,8 +68,8 @@ class AuthFragment : Fragment() {
             }
         }
 
-        spanText.setSpan(clickableSpan1, 37, 54, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spanText.setSpan(clickableSpan2, 57, 89, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spanText.setSpan(clickableSpan1, 37, 56, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spanText.setSpan(clickableSpan2, 59, 91, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         return spanText
     }
