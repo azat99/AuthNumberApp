@@ -1,70 +1,83 @@
 package com.example.app1
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import com.example.app1.databinding.FragmentAuthBinding
 import kotlinx.android.synthetic.main.fragment_auth.*
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.slots.PredefinedSlots
+import ru.tinkoff.decoro.watchers.FormatWatcher
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
-class AuthFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_auth, container, false)
-    }
+class AuthFragment : BindingFragment<FragmentAuthBinding>(FragmentAuthBinding::inflate) {
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        masked_et.setIconCallback {
-            masked_et.setMaskedText("")
-        }
-        masked_et.doOnTextChanged { text, start, before, count ->
-            if (start == 14) {
-                continue_b.isClickable = true
-                continue_b.setTextColor(context?.let { ContextCompat.getColor(it, R.color.black) }!!)
-            } else {
-                continue_b.isClickable = false
-                continue_b.setTextColor(context?.let { ContextCompat.getColor(it, R.color.gray) }!!)
+        binding.run {
+            toolbar.inflateMenu(R.menu.menu)
+            toolbar.setOnMenuItemClickListener {
+                onOptionsItemSelected(it)
             }
-        }
-        agreement_tv.text = spanText()
-        agreement_tv.movementMethod = LinkMovementMethod.getInstance()
+            val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
+            mask.isForbidInputWhenFilled = true
+            val formatWatcher: FormatWatcher = MaskFormatWatcher(mask)
+            formatWatcher.installOn(etPhoneNumber)
 
-        close_iv.setOnClickListener {
-            Toast.makeText(context, "Пока", Toast.LENGTH_SHORT).show()
-        }
-
-        continue_b.setOnClickListener {
-            Toast.makeText(context, masked_et.unmaskedText, Toast.LENGTH_SHORT).show()
+            filledTextInputLayout.setEndIconOnClickListener {
+                etPhoneNumber.setText("", TextView.BufferType.EDITABLE)
+            }
+            etPhoneNumber.doOnTextChanged { text, start, before, count ->
+                if (start == 17) {
+                    btnContinue.isClickable = true
+                    btnContinue.setOnClickListener {
+                        context?.toast(etPhoneNumber.text.toString())
+                    }
+                    btnContinue.setTextColor(context?.let {
+                        ContextCompat.getColor(
+                            it,
+                            R.color.black
+                        )
+                    }!!)
+                } else {
+                    btnContinue.isClickable = false
+                    btnContinue.setTextColor(context?.let {
+                        ContextCompat.getColor(
+                            it,
+                            R.color.gray
+                        )
+                    }!!)
+                }
+            }
+            tvSpanText.text = spanText()
+            tvSpanText.movementMethod = LinkMovementMethod.getInstance()
         }
     }
 
     private fun spanText(): SpannableString {
         val spanText =
-            SpannableString("Нажимая \"Продолжить\", я соглашаюсь с Публичной \n офертой и Соглошением о конфеденциальности")
+            SpannableString(resources.getString(R.string.spanText))
 
         val clickableSpan1: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-                Toast.makeText(context, "Публичной офертой", Toast.LENGTH_SHORT).show()
+                context?.toast("Публичной офертой")
             }
         }
 
         val clickableSpan2: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-                Toast.makeText(context, "Соглошением о конфеденциальности", Toast.LENGTH_SHORT)
-                    .show()
+                context?.toast("Соглошением о конфеденциальности")
             }
         }
 
@@ -72,5 +85,12 @@ class AuthFragment : Fragment() {
         spanText.setSpan(clickableSpan2, 59, 91, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         return spanText
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.close_icon -> context?.toast("Good bye")
+        }
+        return true
     }
 }
