@@ -14,15 +14,12 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="textInputLayout">
-        <item name="android:layout_marginTop">35dp</item>
-        <item name="android:layout_marginRight">20dp</item>
-        <item name="android:layout_marginLeft">20dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="hintTextColor">@color/gray</item>
         <item name="boxStrokeColor">@color/black</item>
         <item name="endIconDrawable">@drawable/ic_close_edit_text</item>
-        <item name="endIconMode">custom</item>
+        <item name="endIconMode">clear_text</item>
         <item name="endIconCheckable">true</item>
     </style>
     <style name="textInputEditText">
@@ -30,22 +27,15 @@
         <item name="backgroundTint">@color/gray_98</item>
         <item name="android:digits">+() 1234567890-</item>
         <item name="android:inputType">number</item>
-        <item name="maxLines">1</item>
+        <item name="android:maxLines">1</item>
     </style>
     <style name="textView_span">
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:layout_marginRight">20dp</item>
-        <item name="android:layout_marginLeft">20dp</item>
         <item name="android:linksClickable">true</item>
         <item name="android:text">@string/spanText</item>
     </style>
     <style name="button_style">
         <item name="android:text">@string/btn_continue</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_marginRight">20dp</item>
-        <item name="android:layout_marginBottom">44dp</item>
-        <item name="android:textColor">@color/gray</item>
-        <item name="android:clickable">false</item>
+        <item name="android:textColor">@color/black</item>
         <item name="backgroundTint">#F2F26D</item>
         <item name="cornerRadius">20dp</item>
         <item name="android:insetTop">0dp</item>

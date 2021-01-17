@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AuthFragment">
+    tools:context=".view.AuthFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/authorization"
+        app:menu="@menu/menu"
         app:titleTextAppearance="@style/toolbar_title"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
@@ -21,6 +22,9 @@
         style="@style/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -29,6 +33,7 @@
             android:id="@+id/et_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             style="@style/textInputEditText"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,6 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/textView_span"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +55,11 @@
         android:id="@+id/btn_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:clickable="false"
+        android:textColor="@color/gray"
         style="@style/button_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
